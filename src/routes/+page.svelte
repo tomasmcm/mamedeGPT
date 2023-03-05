@@ -67,7 +67,7 @@
 		<h1 class="text-2xl font-bold w-full text-center">wangze聊天框</h1>
 		<p class="text-sm text-surface-300 text-center italic">Powered by gpt-3.5-turbo</p>
 	</div>
-	<div class="h-[500px] w-full bg-surface-200 rounded-md p-4 overflow-y-auto flex flex-col gap-4">
+	<div class="h-[500px] w-full rounded-md p-4 overflow-y-auto flex flex-col gap-4">
 		<div class="flex flex-col gap-2">
 			<ChatMessage type="assistant" message="yo,问点什么吗？" />
 			{#each chatMessages as message}
@@ -82,10 +82,7 @@
 		</div>
 		<div class="" bind:this={scrollToDiv} />
 	</div>
-	<form
-		class="flex w-full rounded-md gap-4 bg-primary-300 p-4"
-		on:submit|preventDefault={() => handleSubmit()}
-	>
+	<form class="flex w-full rounded-md gap-4 p-4" on:submit|preventDefault={() => handleSubmit()}>
 		<div class="input-group input-group-divider grid-cols-[1fr_auto]">
 			<input type="text" class="input px-4" bind:value={query} />
 			<button type="submit" class="btn variant-filled-primary"> Send </button>
