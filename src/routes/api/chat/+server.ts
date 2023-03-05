@@ -65,7 +65,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		}
 
 		const messages: ChatCompletionRequestMessage[] = [
-			{ role: 'system', content: prompt },
+			{ role: 'assistant', content: prompt },
 			...reqMessages
 		]
 
