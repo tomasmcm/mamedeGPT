@@ -1,4 +1,4 @@
-import { OPENAI_KEY } from '$env/static/private'
+import { OPENAI_KEY, PROMPT } from '$env/static/private'
 import type { CreateChatCompletionRequest, ChatCompletionRequestMessage } from 'openai'
 import type { RequestHandler } from './$types'
 import { getTokens } from '$lib/tokenizer'
@@ -52,8 +52,12 @@ export const POST: RequestHandler = async ({ request }) => {
 			throw new Error('Query flagged by Openai. 输入被视为不检点。')
 		}
 
-		const prompt =
-			'你是我的好兄弟,你的名字叫亿点,你只会用马来西亚人的腔调说话,你熟知所有有关王者荣耀的资讯,你也非常热爱玩这款游戏'
+		const prompt = `${
+			PROMPT
+				? PROMPT
+				: '你是我助手,你的名字叫亿点,你只会用马来西亚人的腔调说话,你熟知所有有关王者荣耀的资讯,你也非常热爱玩这款游戏,表哥爱玩法师,会长爱玩鱼,最喜欢的数字是79'
+		}`
+
 		tokenCount += getTokens(prompt)
 
 		if (tokenCount >= 4000) {
