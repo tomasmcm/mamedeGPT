@@ -92,8 +92,3 @@
 		</div>
 	</form>
 </div>
-
-<footer class="italic">
-	by
-	<a href="https://github.com/leovoon/wangze-chatbot"> leovoon </a>
-</footer>
