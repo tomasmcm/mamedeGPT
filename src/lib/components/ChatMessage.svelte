@@ -17,7 +17,7 @@
 	</div>
 
 	<div
-		class="chip flex max-w-full whitespace-pre-line justify-center items-center text-sm sm:text-lg {type ===
+		class="chip flex max-w-full text-left whitespace-pre-line justify-center items-center text-sm sm:text-lg {type ===
 		'user'
 			? 'variant-ghost-secondary text-secondary-800'
 			: 'variant-ghost-primary text-primary-800'}
