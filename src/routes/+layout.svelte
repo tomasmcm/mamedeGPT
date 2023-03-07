@@ -9,6 +9,10 @@
 	import '../app.css'
 </script>
 
+<svelte:head>
+	<title>亿点</title>
+</svelte:head>
+
 <div class="flex flex-col items-center max-w-4xl mx-auto">
 	<slot />
 </div>

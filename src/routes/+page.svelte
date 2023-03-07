@@ -66,7 +66,7 @@
 <div class="flex flex-col justify-between pt-4 w-full  items-center gap-2">
 	<div class="h-[90%] w-full">
 		<div>
-			<h1 class="text-2xl font-bold w-full text-center">wangze聊天框</h1>
+			<h1 class="text-2xl font-bold w-full text-center">1dian聊天框</h1>
 			<p class="text-sm text-surface-300 text-center italic">Powered by gpt-3.5-turbo</p>
 		</div>
 		<div
