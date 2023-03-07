@@ -2,7 +2,7 @@ import { OPENAI_KEY, PROMPT } from '$env/static/private'
 import type { CreateChatCompletionRequest, ChatCompletionRequestMessage } from 'openai'
 import type { RequestHandler } from './$types'
 import { getTokens } from '$lib/tokenizer'
-import { json } from '@sveltejs/kit'
+import { error, json } from '@sveltejs/kit'
 import type { Config } from '@sveltejs/adapter-vercel'
 
 export const config: Config = {
@@ -97,9 +97,6 @@ export const POST: RequestHandler = async ({ request }) => {
 		})
 	} catch (err) {
 		console.error(err)
-		return json(
-			{ error: 'There was an error processing your request. 出错了,问做的人。' },
-			{ status: 500 }
-		)
+		throw error(500, 'There was an error processing your request. 出错了,刷新后再试，或问做的人。')
 	}
 }

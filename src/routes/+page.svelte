@@ -54,12 +54,12 @@
 		scrollToBottom()
 	}
 
-	function handleError<T>(err: T) {
+	function handleError<T>(err: T & { data?: string }) {
 		loading = false
 		query = ''
 		answer = ''
 		console.error(err)
-		alert(err)
+		if (err.data) alert(JSON.parse(err.data).message)
 	}
 </script>
 
