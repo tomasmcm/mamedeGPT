@@ -59,6 +59,7 @@
 		query = ''
 		answer = ''
 		console.error(err)
+		alert(err)
 	}
 </script>
 

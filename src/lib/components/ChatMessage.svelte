@@ -1,8 +1,11 @@
 <script lang="ts">
 	import type { ChatCompletionRequestMessageRoleEnum } from 'openai'
 	import { Avatar } from '@skeletonlabs/skeleton'
+	import { clipboard } from '@skeletonlabs/skeleton'
 	export let type: ChatCompletionRequestMessageRoleEnum
 	export let message: string
+
+	$: loading = message === 'Loading..'
 </script>
 
 <div class="w-full {type === 'user' ? 'flex justify-end' : 'flex justify-start'}">
@@ -21,8 +24,9 @@
 		'user'
 			? 'variant-ghost-secondary text-secondary-800'
 			: 'variant-ghost-primary text-primary-800'}
-			{message === 'Loading..' && 'animate-pulse'}
+			{loading && 'animate-pulse'}
 			"
+		use:clipboard={message}
 	>
 		{message}
 	</div>
