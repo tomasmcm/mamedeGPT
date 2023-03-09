@@ -2,6 +2,7 @@
 	import ChatMessage from '$lib/components/ChatMessage.svelte'
 	import type { ChatCompletionRequestMessage } from 'openai'
 	import { SSE } from 'sse.js'
+	import { onMount } from 'svelte'
 	import type { Snapshot } from './$types'
 
 	let query: string = ''
@@ -32,6 +33,14 @@
 	}
 
 	const handleSubmit = async () => {
+		if (query === 'clear') {
+			if (confirm('Are you sure you want to clear the chat? 清楚全部吗?')) {
+				chatMessages = []
+				query = ''
+				sessionStorage.removeItem('sveltekit:snapshot')
+				return
+			}
+		}
 		loading = true
 		chatMessages = [...chatMessages, { role: 'user', content: query }]
 
@@ -77,6 +86,8 @@
 		console.error(err)
 		if (err.data) alert(JSON.parse(err.data).message)
 	}
+
+	onMount(() => scrollToBottom())
 </script>
 
 <div class="flex flex-col justify-between pt-4 w-full h-[80vh] items-center gap-2">
@@ -105,6 +116,7 @@
 			<textarea
 				class="textarea px-3.5 pt-4 pb-1.5 leading-5  focus:outline-none bg-transparent border-none "
 				bind:value={query}
+				placeholder="Send 'clear' to clear the chat"
 			/>
 
 			<button type="submit" class="btn variant-filled-primary"> Send </button>

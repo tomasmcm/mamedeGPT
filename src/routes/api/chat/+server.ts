@@ -53,13 +53,7 @@ export const POST: RequestHandler = async ({ request }) => {
 			throw new Error('Query flagged by Openai. 输入被视为不检点。')
 		}
 
-		console.log(PROMPT)
-
-		const prompt = `${
-			PROMPT
-				? PROMPT
-				: `Your name is 亿点, a large language model trained by OpenAI. Your author is Leo. Answer question as friendly as possible. Knowledge cutoff: ${currentDate} Current date: ${currentDate}`
-		}`
+		const prompt = `Your name is 亿点, a language model trained by OpenAI. Your co-author is Leo. Answer question as friendly as possible. Knowledge cutoff: ${currentDate} Current date: ${currentDate}`
 
 		tokenCount += getTokens(prompt)
 
