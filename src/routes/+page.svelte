@@ -26,7 +26,7 @@
 		}
 	}
 
-	$: query === 'clear' && handleClearConfirm()
+	$: query.toLocaleLowerCase() === 'clear' && handleClearConfirm()
 
 	function scrollToBottom() {
 		setTimeout(function () {
