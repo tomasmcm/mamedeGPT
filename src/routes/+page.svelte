@@ -26,6 +26,8 @@
 		}
 	}
 
+	$: query === 'clear' && handleClearConfirm()
+
 	function scrollToBottom() {
 		setTimeout(function () {
 			scrollToDiv.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
@@ -33,15 +35,6 @@
 	}
 
 	const handleSubmit = async () => {
-		if (query === 'clear') {
-			if (confirm('Are you sure you want to clear the chat? 清楚全部吗?')) {
-				chatMessages = []
-				query = ''
-				sessionStorage.removeItem('sveltekit:snapshot')
-				return
-			}
-			return
-		}
 		loading = true
 		chatMessages = [...chatMessages, { role: 'user', content: query }]
 
@@ -86,6 +79,18 @@
 		answer = ''
 		console.error(err)
 		if (err.data) alert(JSON.parse(err.data).message)
+	}
+
+	function handleClearConfirm() {
+		setTimeout(() => {
+			if (confirm('Are you sure you want to clear the chat? 清楚全部吗?')) {
+				chatMessages = []
+				query = ''
+				sessionStorage.removeItem('sveltekit:snapshot')
+				return
+			}
+			return
+		}, 100)
 	}
 
 	onMount(() => scrollToBottom())
