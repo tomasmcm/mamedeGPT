@@ -9,7 +9,10 @@
 	$: loading = message === 'Loading..'
 </script>
 
-<div in:fade|local class="w-full {type === 'user' ? 'flex justify-end' : 'flex justify-start'}">
+<div
+	in:fade|local={{ duration: 300 }}
+	class="w-full {type === 'user' ? 'flex justify-end' : 'flex justify-start'}"
+>
 	<div class="badge">
 		<Avatar
 			rounded="rounded-full"

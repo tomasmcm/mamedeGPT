@@ -19,6 +19,7 @@
 			}
 		},
 		restore: (captured) => {
+			if (!captured) return
 			query = captured.query
 			chatMessages = captured.chatMessages
 		}
