@@ -2,17 +2,13 @@
 	import type { ChatCompletionRequestMessageRoleEnum } from 'openai'
 	import { Avatar } from '@skeletonlabs/skeleton'
 	import { clipboard } from '@skeletonlabs/skeleton'
-	import { fade } from 'svelte/transition'
 	export let type: ChatCompletionRequestMessageRoleEnum
 	export let message: string
 
 	$: loading = message === 'Loading..'
 </script>
 
-<div
-	in:fade|local={{ duration: 300 }}
-	class="w-full {type === 'user' ? 'flex justify-end' : 'flex justify-start'}"
->
+<div class="w-full {type === 'user' ? 'flex justify-end' : 'flex justify-start'}">
 	<div class="badge">
 		<Avatar
 			rounded="rounded-full"

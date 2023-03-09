@@ -97,7 +97,6 @@
 					<ChatMessage type="assistant" message="Loading.." />
 				{/if}
 			</div>
-			<div bind:this={scrollToDiv} />
 		</div>
 	</div>
 	<form class="flex w-full rounded-md gap-4 p-4" on:submit|preventDefault={() => handleSubmit()}>
@@ -110,5 +109,6 @@
 
 			<button type="submit" class="btn variant-filled-primary"> Send </button>
 		</div>
+		<div bind:this={scrollToDiv} />
 	</form>
 </div>
