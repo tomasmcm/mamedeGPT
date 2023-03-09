@@ -79,7 +79,7 @@
 	}
 </script>
 
-<div class="flex flex-col justify-between pt-4 w-full h-[85vh] items-center gap-2">
+<div class="flex flex-col justify-between pt-4 w-full h-[80vh] items-center gap-2">
 	<div class="flex-grow w-full">
 		<div class="h-full max-h-full w-full rounded-md px-2 py-4 overflow-y-auto flex flex-col gap-4">
 			<div class="flex flex-col gap-2">
