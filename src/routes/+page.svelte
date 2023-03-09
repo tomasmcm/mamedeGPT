@@ -40,6 +40,7 @@
 				sessionStorage.removeItem('sveltekit:snapshot')
 				return
 			}
+			return
 		}
 		loading = true
 		chatMessages = [...chatMessages, { role: 'user', content: query }]
