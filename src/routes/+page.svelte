@@ -4,12 +4,14 @@
 	import { SSE } from 'sse.js'
 	import { onMount } from 'svelte'
 	import type { Snapshot } from './$types'
+	import PinAngleIcon from '$lib/components/PinAngleIcon.svelte'
 
 	let query: string = ''
 	let answer: string = ''
 	let loading: boolean = false
 	let chatMessages: ChatCompletionRequestMessage[] = []
 	let scrollToDiv: HTMLDivElement
+	let isTextAreaExpanded: boolean = false
 
 	export const snapshot: Snapshot = {
 		capture: () => {
@@ -119,11 +121,20 @@
 	<form class="flex w-full rounded-md gap-4 p-4" on:submit|preventDefault={() => handleSubmit()}>
 		<div class="input-group input-group-divider grid-cols-[1fr_auto]">
 			<!-- <input type="text" class="input px-4" bind:value={query} /> -->
-			<textarea
-				class="textarea px-3.5 pt-4 pb-1.5 leading-5  focus:outline-none bg-transparent border-none "
-				bind:value={query}
-				placeholder="Send 'clear' to clear the chat"
-			/>
+			<div class="relative">
+				<textarea
+					class="textarea px-3.5 pt-4 pb-1.5 leading-5 transition-all ease-in  
+					focus:outline-none bg-transparent border-none
+					{isTextAreaExpanded ? 'h-32' : ''}"
+					bind:value={query}
+					placeholder="Send 'clear' to clear the chat"
+				/>
+				<PinAngleIcon
+					classes="cursor-pointer absolute top-2 right-2 text-primary-400 hover:text-primary-500"
+					pinned={isTextAreaExpanded}
+					on:togglePin={() => (isTextAreaExpanded = !isTextAreaExpanded)}
+				/>
+			</div>
 
 			<button type="submit" class="btn variant-filled-primary"> Send </button>
 		</div>
