@@ -11,7 +11,7 @@
 </script>
 
 {#if pinned}
-	<button type="button" on:click={togglePin} on:keydown={togglePin}>
+	<button tabindex="-1" type="button" on:click={togglePin} on:keydown={togglePin}>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="16"
@@ -26,7 +26,7 @@
 		</svg>
 	</button>
 {:else}
-	<button type="button" on:click={togglePin} on:keydown={togglePin}>
+	<button tabindex="-1" type="button" on:click={togglePin} on:keydown={togglePin}>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="16"
