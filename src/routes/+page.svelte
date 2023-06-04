@@ -6,11 +6,24 @@
 	import type { Snapshot } from './$types'
 	import { Textarea } from '$components/ui/textarea'
 	import { Button } from '$components/ui/button'
+	import {
+		AlertDialog,
+		AlertDialogAction,
+		AlertDialogCancel,
+		AlertDialogContent,
+		AlertDialogDescription,
+		AlertDialogFooter,
+		AlertDialogHeader,
+		AlertDialogTitle
+	} from '$components/ui/alert-dialog'
 
 	let query: string = ''
 	let answer: string = ''
 	let loading: boolean = false
 	let error = false
+	let openAlert = false
+	let openAlertTitle = ''
+	let openAlertDescription = ''
 	let chatMessages: ChatCompletionRequestMessage[] = []
 	let scrollToDiv: HTMLDivElement
 
@@ -30,7 +43,8 @@
 		}
 	}
 
-	$: query.toLocaleLowerCase() === 'clear' && handleClearConfirm()
+	$: query.toLocaleLowerCase() === 'clear' &&
+		promptAlert('Clear Chat', 'Are you sure you want to clear the chat?')
 
 	function scrollToBottom() {
 		setTimeout(function () {
@@ -85,24 +99,47 @@
 		answer = ''
 		console.error(err)
 		error = true
-		if (err.data) alert(JSON.parse(err.data).message)
+		if (err.data) prompt('Opps', err.data)
+		else promptAlert('Opps', 'Something went wrong')
 	}
 
 	function handleClearConfirm() {
-		setTimeout(() => {
-			if (confirm('Are you sure you want to clear the chat? 清楚全部吗?')) {
-				chatMessages = []
-				query = ''
-				sessionStorage.removeItem('sveltekit:snapshot')
-				return
-			}
-			return
-		}, 100)
+		chatMessages = []
+		query = ''
+		sessionStorage.removeItem('sveltekit:snapshot')
+	}
+
+	function promptAlert(title: string, description: string) {
+		openAlert = true
+		openAlertTitle = title
+		openAlertDescription = description
 	}
 
 	onMount(() => scrollToBottom())
 </script>
 
+<AlertDialog bind:open={openAlert}>
+	<AlertDialogContent escapeKeyDown={() => (openAlert = false)}>
+		<AlertDialogHeader>
+			<AlertDialogTitle>{openAlertTitle}</AlertDialogTitle>
+			<AlertDialogDescription>
+				{openAlertDescription}
+			</AlertDialogDescription>
+		</AlertDialogHeader>
+		<AlertDialogFooter>
+			{#if openAlertTitle.toUpperCase() === 'CLEAR CHAT'}
+				<AlertDialogCancel>
+					<button on:click={() => (openAlert = false)}>Cancel</button>
+				</AlertDialogCancel>
+				<AlertDialogAction>
+					<button on:click={handleClearConfirm}>Clear</button>
+				</AlertDialogAction>
+			{:else}
+				<AlertDialogAction>Okay</AlertDialogAction>
+			{/if}
+		</AlertDialogFooter>
+	</AlertDialogContent>
+</AlertDialog>
 <div class="flex flex-col justify-between pt-4 w-full h-[80vh] items-center gap-2">
 	<div class="flex-grow w-full">
 		<div class="h-full max-h-full w-full rounded-md px-2 py-4 overflow-y-auto flex flex-col gap-4">
@@ -128,4 +165,5 @@
 		<Button type="submit">Send</Button>
 		<div bind:this={scrollToDiv} />
 	</form>
+	<p class="text-xs">Type 'clear' to clean chat</p>
 </div>
