@@ -5,6 +5,7 @@
 	import { onMount } from 'svelte'
 	import type { Snapshot } from './$types'
 	import PinAngleIcon from '$lib/components/PinAngleIcon.svelte'
+	import {Textarea} from '$components/ui/textarea'
 
 	let query: string = ''
 	let answer: string = ''
@@ -21,7 +22,7 @@
 				chatMessages
 			}
 		},
-		restore: (captured) => {
+		restore: (captured: { query: string; chatMessages: ChatCompletionRequestMessage[] }) => {
 			if (!captured) return
 			query = captured.query
 			chatMessages = captured.chatMessages
@@ -122,6 +123,7 @@
 		<div class="input-group input-group-divider grid-cols-[1fr_auto]">
 			<!-- <input type="text" class="input px-4" bind:value={query} /> -->
 			<div class="relative">
+				<Textarea />
 				<textarea
 					class="textarea px-3.5 pt-4 pb-1.5 leading-5 transition-all ease-in  
 					focus:outline-none bg-transparent border-none
