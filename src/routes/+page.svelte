@@ -4,18 +4,19 @@
 	import { SSE } from 'sse.js'
 	import { onMount } from 'svelte'
 	import type { Snapshot } from './$types'
-	import PinAngleIcon from '$lib/components/PinAngleIcon.svelte'
-	import {Textarea} from '$components/ui/textarea'
+	import { Textarea } from '$components/ui/textarea'
+	import { Button } from '$components/ui/button'
 
 	let query: string = ''
 	let answer: string = ''
 	let loading: boolean = false
+	let error = false
 	let chatMessages: ChatCompletionRequestMessage[] = []
 	let scrollToDiv: HTMLDivElement
-	let isTextAreaExpanded: boolean = false
 
 	export const snapshot: Snapshot = {
 		capture: () => {
+			if (error) return
 			if (!query && !chatMessages.length) return
 			return {
 				query,
@@ -55,6 +56,7 @@
 		eventSource.addEventListener('message', (e) => {
 			scrollToBottom()
 			try {
+				error = false
 				loading = false
 				if (e.data === '[DONE]') {
 					chatMessages = [...chatMessages, { role: 'assistant', content: answer }]
@@ -69,6 +71,7 @@
 					answer = (answer ?? '') + delta.content
 				}
 			} catch (err) {
+				error = true
 				handleError(err as Error)
 			}
 		})
@@ -81,6 +84,7 @@
 		query = ''
 		answer = ''
 		console.error(err)
+		error = true
 		if (err.data) alert(JSON.parse(err.data).message)
 	}
 
@@ -103,9 +107,9 @@
 	<div class="flex-grow w-full">
 		<div class="h-full max-h-full w-full rounded-md px-2 py-4 overflow-y-auto flex flex-col gap-4">
 			<div class="flex flex-col gap-2">
-				<ChatMessage type="assistant" message="yo,问点什么吗？" />
+				<ChatMessage type="assistant" message="做么？" />
 
-				{#if chatMessages}
+				{#if chatMessages && !error}
 					{#each chatMessages as message}
 						<ChatMessage type={message.role} message={message.content} />
 					{/each}
@@ -119,27 +123,9 @@
 			</div>
 		</div>
 	</div>
-	<form class="flex w-full rounded-md gap-4 p-4" on:submit|preventDefault={() => handleSubmit()}>
-		<div class="input-group input-group-divider grid-cols-[1fr_auto]">
-			<!-- <input type="text" class="input px-4" bind:value={query} /> -->
-			<div class="relative">
-				<Textarea />
-				<textarea
-					class="textarea px-3.5 pt-4 pb-1.5 leading-5 transition-all ease-in  
-					focus:outline-none bg-transparent border-none
-					{isTextAreaExpanded ? 'h-32' : ''}"
-					bind:value={query}
-					placeholder="Send 'clear' to clear the chat"
-				/>
-				<PinAngleIcon
-					classes="cursor-pointer absolute top-2 right-2 text-primary-400 hover:text-primary-500"
-					pinned={isTextAreaExpanded}
-					on:togglePin={() => (isTextAreaExpanded = !isTextAreaExpanded)}
-				/>
-			</div>
-
-			<button type="submit" class="btn variant-filled-primary"> Send </button>
-		</div>
+	<form class="w-full grid gap-2 p-4" on:submit|preventDefault={() => handleSubmit()}>
+		<Textarea bind:value={query} />
+		<Button type="submit">Send</Button>
 		<div bind:this={scrollToDiv} />
 	</form>
 </div>

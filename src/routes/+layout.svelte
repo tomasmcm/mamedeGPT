@@ -10,7 +10,7 @@
 <div class="flex flex-col items-center max-w-4xl mx-auto">
 	<h1 class="text-2xl font-bold w-full text-center py-4 flex items-center justify-between">
 		<span />
-		<span class="col-auto  "> 1dian聊天框 </span>
+		<a href="/" class="col-auto">亿点问</a>
 		<a href="about" class="text-sm p-4">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

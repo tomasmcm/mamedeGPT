@@ -1,31 +1,36 @@
 <script lang="ts">
 	import type { ChatCompletionRequestMessageRoleEnum } from 'openai'
+	import { Avatar } from '$components/ui/avatar'
+	import {
+		Card,
+		CardContent,
+		CardDescription,
+		CardFooter,
+		CardHeader,
+		CardTitle
+	} from '$components/ui/card'
+	import AvatarImage from './ui/avatar/AvatarImage.svelte'
+	import AvatarFallback from './ui/avatar/AvatarFallback.svelte'
 	export let type: ChatCompletionRequestMessageRoleEnum
 	export let message: string
 
 	$: loading = message === 'Loading..'
+	$: isUser = type === 'user'
 </script>
 
-<div class="w-full {type === 'user' ? 'flex justify-end' : 'flex justify-start'}">
-	<div class="badge">
-		<!-- <Avatar
-			rounded="rounded-full"
-			width="w-8"
-			initials={type === 'user' ? 'Me' : 'WZ'}
-			alt="{type} avatar"
-			background={type === 'user' ? 'bg-secondary-500' : 'bg-primary-500'}
-		/> -->
-	</div>
-
-	<!-- <div
-		class="chip flex max-w-full text-left whitespace-pre-line justify-center items-center text-sm sm:text-lg {type ===
-		'user'
-			? 'variant-ghost-secondary text-secondary-800'
-			: 'variant-ghost-primary text-primary-800'}
-			{loading && 'animate-pulse'}
-			"
-		use:clipboard={message}
-	>
+<div class="w-full {isUser ? 'flex justify-end' : 'flex justify-start'}">
+	{#if type !== 'user'}
+		<Avatar class="w-6 h-6">
+			<AvatarImage src="/tatan.webp" alt="YD avatar" />
+			<AvatarFallback>YD</AvatarFallback>
+		</Avatar>
+	{/if}
+	<div class="rounded-md border px-4 py-3 font-mono text-sm ml-2 {isUser ? 'bg-green-200' : ''}">
 		{message}
-	</div> -->
+	</div>
+	<!-- <Card>
+		<CardContent>
+			<p>{message}</p>
+		</CardContent>
+	</Card> -->
 </div>
