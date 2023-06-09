@@ -4,6 +4,9 @@
 	import { Skeleton } from '$components/ui/skeleton'
 	import AvatarImage from './ui/avatar/AvatarImage.svelte'
 	import AvatarFallback from './ui/avatar/AvatarFallback.svelte'
+	import { marked } from 'marked';
+	import DOMPurify from 'isomorphic-dompurify';
+
 	export let type: ChatCompletionRequestMessageRoleEnum
 	export let message: string
 
@@ -29,7 +32,7 @@
 				? 'bg-green-200'
 				: 'hover:bg-gray-100'}"
 		>
-			{message}
+			{@html DOMPurify.sanitize(marked.parse(message))}
 		</p>
 	{/if}
 </div>
