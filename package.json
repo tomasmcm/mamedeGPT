@@ -23,6 +23,7 @@
 		"@types/marked": "^4.0.8",
 		"@typescript-eslint/eslint-plugin": "^5.54.0",
 		"@typescript-eslint/parser": "^5.54.0",
+		"@vite-pwa/sveltekit": "^0.2.5",
 		"autoprefixer": "^10.4.13",
 		"dompurify": "^3.0.1",
 		"eslint": "^8.35.0",
@@ -41,7 +42,9 @@
 		"tslib": "^2.5.0",
 		"typescript": "^4.9.5",
 		"vite": "^4.1.4",
-		"vitest": "^0.25.8"
+		"vite-plugin-pwa": "^0.16.4",
+		"vitest": "^0.25.8",
+		"workbox-window": "^7.0.0"
 	},
 	"type": "module",
 	"dependencies": {

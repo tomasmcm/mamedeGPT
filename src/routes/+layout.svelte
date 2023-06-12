@@ -2,10 +2,21 @@
 	import '../app.css'
 	import '../app.postcss'
 	import { page } from '$app/stores'
+	import { pwaInfo } from 'virtual:pwa-info'
+	import { onMount } from 'svelte'
+
+	$: webManifestLink = pwaInfo ? pwaInfo.webManifest.linkTag : ''
+
+	let ReloadPrompt = null
+
+	onMount(async () => {
+		pwaInfo && (ReloadPrompt = (await import('$lib/components/ReloadPrompt.svelte')).default)
+	})
 </script>
 
 <svelte:head>
 	<title>亿点</title>
+	{@html webManifestLink}
 </svelte:head>
 
 <div class="flex flex-col items-center max-w-4xl mx-auto">
@@ -30,7 +41,7 @@
 		{:else}
 			<span />
 		{/if}
-		<h1 class="col-auto">亿点问</h1>
+		<h1 class="col-auto">亿点问ss</h1>
 		<a href="about" class="text-sm p-4">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
