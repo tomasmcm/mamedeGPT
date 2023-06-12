@@ -41,7 +41,7 @@
 		{:else}
 			<span />
 		{/if}
-		<h1 class="col-auto">亿点问ss</h1>
+		<h1 class="col-auto">亿点问</h1>
 		<a href="about" class="text-sm p-4">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
