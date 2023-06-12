@@ -4,8 +4,8 @@
 	import { Skeleton } from '$components/ui/skeleton'
 	import AvatarImage from './ui/avatar/AvatarImage.svelte'
 	import AvatarFallback from './ui/avatar/AvatarFallback.svelte'
-	import { marked } from 'marked';
-	import DOMPurify from 'isomorphic-dompurify';
+	import { marked } from 'marked'
+	import DOMPurify from 'isomorphic-dompurify'
 
 	export let type: ChatCompletionRequestMessageRoleEnum
 	export let message: string
@@ -17,7 +17,7 @@
 <div class="flex space-x-2 {isUser ? 'flex justify-end' : 'flex justify-start'}">
 	{#if type !== 'user'}
 		<Avatar class="w-6 h-6">
-			<AvatarImage src="/tatan.webp" alt="YD avatar" />
+			<AvatarImage src="/tatan.avif" alt="YD avatar" />
 			<AvatarFallback>YD</AvatarFallback>
 		</Avatar>
 	{/if}
