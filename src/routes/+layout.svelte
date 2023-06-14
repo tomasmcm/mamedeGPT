@@ -1,15 +1,42 @@
-<script>
+<script lang="ts">
 	import '../app.postcss'
 	import { page } from '$app/stores'
 	import { pwaInfo } from 'virtual:pwa-info'
 	import { onMount } from 'svelte'
+	import InstallPrompt from '$components/InstallPrompt.svelte'
 
 	$: webManifestLink = pwaInfo ? pwaInfo.webManifest.linkTag : ''
 
-	let ReloadPrompt = null
+	let ReloadPrompt: typeof import('$lib/components/ReloadPrompt.svelte')['default'] | null = null
+	let deferredPrompt: any
+	let pwaInstallable = false
+	let pwaInstalled = false
 
 	onMount(async () => {
 		pwaInfo && (ReloadPrompt = (await import('$lib/components/ReloadPrompt.svelte')).default)
+
+		window.addEventListener('DOMContentLoaded', async (event) => {
+			if ('BeforeInstallPromptEvent' in window) {
+				console.log('⏳ BeforeInstallPromptEvent supported but not fired yet')
+			} else {
+				console.log('❌ BeforeInstallPromptEvent NOT supported')
+			}
+		})
+
+		window.addEventListener('beforeinstallprompt', (e) => {
+			// Prevents the default mini-infobar or install dialog from appearing on mobile
+			e.preventDefault()
+			// Save the event because you’ll need to trigger it later.
+			deferredPrompt = e
+			pwaInstallable = true
+			// Show your customized install prompt for your PWA
+			console.log('✅ BeforeInstallPromptEvent fired', true)
+		})
+
+		window.addEventListener('appinstalled', (e) => {
+			pwaInstalled = true
+			console.log('✅ AppInstalled fired', true)
+		})
 	})
 </script>
 
@@ -19,9 +46,7 @@
 </svelte:head>
 
 <div class="h-[100vh] flex flex-col items-center max-w-4xl mx-auto">
-	<h1 class="text-2xl font-bold w-full text-center py-4 flex items-center justify-between">
-		<span />
-		<h1 class="col-auto">亿点问</h1>
+	<div class="text-2xl font-bold px-2 py-4 flex items-center justify-between w-full">
 		<a href="about" class="text-sm p-4">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +62,13 @@
 				/>
 			</svg>
 		</a>
-	</h1>
+		<h1>亿点问</h1>
+		{#if pwaInstallable && !pwaInstalled}
+			<InstallPrompt {deferredPrompt} />
+		{:else}
+			<span />
+		{/if}
+	</div>
 	<slot />
 	{#if $page.route.id === '/about'}
 		<div class="h-full w-full grid place-items-center">
@@ -60,3 +91,7 @@
 		</div>
 	{/if}
 </div>
+
+{#if ReloadPrompt}
+	<svelte:component this={ReloadPrompt} />
+{/if}
