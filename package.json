@@ -50,11 +50,8 @@
 	"dependencies": {
 		"class-variance-authority": "^0.6.0",
 		"clsx": "^1.2.1",
-		"gpt3-tokenizer": "^1.1.5",
 		"lucide-svelte": "^0.233.0",
-		"openai": "^3.2.1",
 		"radix-svelte": "^0.7.1",
-		"sse.js": "^0.6.1",
 		"tailwind-merge": "^1.13.0",
 		"tailwindcss-animate": "^1.0.5"
 	}
