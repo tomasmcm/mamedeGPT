@@ -18,20 +18,21 @@
 		offlineReady.set(false)
 		needRefresh.set(false)
 	}
-	$: toast = $offlineReady || $needRefresh
+	// $: toast = $offlineReady || $needRefresh
+	$: toast = $needRefresh
 </script>
 
 {#if toast}
 	<div class="pwa-toast" role="alert">
 		<div class="message">
 			{#if $offlineReady}
-				<span> 已可线下使用 <br /> App ready to work offline</span>
+				<span>App ready to work offline</span>
 			{:else}
-				<span> 有新的更新，点刷新 <br /> New Update. Click on reload button to update. </span>
+				<span>New Update. Click on reload button to update.</span>
 			{/if}
 		</div>
 		{#if $needRefresh}
-			<button on:click={() => updateServiceWorker(true)}> Reload 刷新 </button>
+			<button on:click={() => updateServiceWorker(true)}>Reload</button>
 		{/if}
 		<button on:click={close}> Close </button>
 	</div>

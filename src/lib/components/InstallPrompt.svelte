@@ -22,4 +22,4 @@
 	}
 </script>
 
-<Button on:click={installApp} variant="secondary" class="ml-auto mx-4">Install</Button>
+<Button on:click={installApp} variant="secondary" class="mr-4">Install PWA</Button>

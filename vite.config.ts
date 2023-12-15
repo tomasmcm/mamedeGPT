@@ -10,8 +10,8 @@ const config: UserConfig = {
 				base: '/',
 				selfDestroying: process.env.SELF_DESTROYING_SW === 'true',
 				manifest: {
-					short_name: 'Yidian Ask',
-					name: 'Yidian Ask',
+					short_name: '🎁 💬',
+					name: '🎁 💬',
 					start_url: '/',
 					scope: '/',
 					display: 'standalone',
@@ -19,28 +19,28 @@ const config: UserConfig = {
 					background_color: "#ffffff",
 					icons: [
 						{
-							src: '/tatan.png',
+							src: '/bot.jpg',
 							sizes: '192x192',
-							type: 'image/png',
+							type: 'image/jpg',
 						},
 						{
-							src: '/tatan.png',
+							src: '/bot.jpg',
 							sizes: '512x512',
-							type: 'image/png',
+							type: 'image/jpg',
 						},
 						{
-							src: '/tatan.png',
+							src: '/bot.jpg',
 							sizes: '512x512',
-							type: 'image/png',
+							type: 'image/jpg',
 							purpose: 'any maskable',
 						},
 					],
 				},
 				injectManifest: {
-					globPatterns: ['client/**/*.{js,css,ico,png,svg,webp,woff,woff2}']
+					globPatterns: ['client/**/*.{js,mjs,css,ico,jpg,png,svg,webp,woff,woff2,wasm}']
 				},
 				workbox: {
-					globPatterns: ['client/**/*.{js,css,ico,png,svg,webp,woff,woff2}']
+					globPatterns: ['client/**/*.{js,mjs,css,ico,jpg,png,svg,webp,woff,woff2,wasm}']
 				},
 				devOptions: {
 					enabled: true,

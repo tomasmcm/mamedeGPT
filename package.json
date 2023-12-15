@@ -11,7 +11,8 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test:unit": "vitest",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write ."
+		"format": "prettier --plugin-search-dir . --write .",
+		"deploy": "vercel --prod --archive=tgz"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.31.2",
@@ -48,6 +49,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@xenova/transformers": "^2.9.0",
 		"class-variance-authority": "^0.6.0",
 		"clsx": "^1.2.1",
 		"lucide-svelte": "^0.233.0",
